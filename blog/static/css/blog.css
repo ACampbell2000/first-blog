@@ -63,3 +63,7 @@ body {
 	font-weight: bold;
 	font-family: 'Roboto', sans-serif;
 }
+
+label {
+	color: #ffffff;
+}
