@@ -17,6 +17,6 @@ class HomePageTest(TestCase):
 		response = post_list(request)
 		html = response.content.decode('utf8')
 		#it is new line first since the first line is actually {% load static %} but this appears as an empty line in html
-		self.assertTrue(html.startswith('\n<html>'))
+		self.assertTrue(html.strip().startswith('<html>'))
 		self.assertIn('<title>Alex\'s Blog</title>', html)
 		self.assertTrue(html.endswith('</html>'))
