@@ -58,3 +58,7 @@ def post_remove(request,pk):
 		return redirect('post_list')
 	else:
 		return redirect('post_draft_list')
+
+@login_required
+def cv(request):
+	return render(request, 'blog/cv.html')

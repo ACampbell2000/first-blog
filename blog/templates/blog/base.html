@@ -9,22 +9,24 @@
 		<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">	
 	</head>
 		<body>
-			<div class="page-header">
-				{% if user.is_authenticated %}
-					<a id="add_post" href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
-					<a id="post_draft_list" href="{% url 'post_draft_list' %}" class="top-menu"><span class="glyphicon glyphicon-edit"></span></a>
-					<a id="account" href="{% url 'admin:index' %}" class="top-menu"><span class="glyphicon glyphicon-user"></span></a>
-				{% else %}
-					<a id="login" href="{% url 'admin:index' %}" class="top-menu"><span class="glyphicon glyphicon-lock"></span></a>
-				{% endif %}
-				<h1 id="home_button" ><a href="/">Alex's Blog</a></h1>
-			</div>
-			<div class="content container">
-				<div class="row">
-					<div class="col-md-8">
+			<div class="row">
+				<div class="columnleft">
+					<h1 id="home_button" ><a href="/">Alex's Blog</a></h1>
+					<div class="buttons">
+						{% if user.is_authenticated %}
+							<a id="add_post" href="{% url 'post_new' %}" class="side-menu"><span class="glyphicon glyphicon-plus"></span> New Post </a><br>
+							<a id="post_draft_list" href="{% url 'post_draft_list' %}" class="side-menu"><span class="glyphicon glyphicon-edit"></span> Draft Posts </a><br>
+							<a id="account" href="{% url 'admin:index' %}" class="side-menu"><span class="glyphicon glyphicon-user"></span> Account </a><br>
+							<a id="cv" href="{% url 'cv' %}" class="side-menu"><span class="glyphicon glyphicon-list-alt"></span> CV <br></a>
+						{% else %}
+							<a id="login" href="{% url 'admin:index' %}" class="side-menu"><span class="glyphicon glyphicon-lock"></span> Login </a>
+						{% endif %}
+					</div>
+				</div>
+			
+				<div class="columnright">
 					{% block content %}
 					{% endblock %}
-					</div>
 				</div>
 			</div>
 		</body>
