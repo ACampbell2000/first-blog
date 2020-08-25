@@ -1,11 +1,20 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from random import seed
+from random import random
 import time
 import unittest
 
 
 class VisitorTest(unittest.TestCase):
 
+	seed(1)
+
+	postTitleTest = "selenium test title " + str(random()*1000)
+	postTextTest = "selenium test text " + str(random()*1000)
+
+	draftTitleTest = "selenium draft test title " + str(random()*1000)
+	draftTextTest = "selenium draft test text " + str(random()*1000)
 
 	def setUp(self):
 		self.browser = webdriver.Firefox()
@@ -47,6 +56,30 @@ class VisitorTest(unittest.TestCase):
 		self.browser.back()
 		self.browser.back()
 
+	def test_delete_draft(self):
+		self.browser.get('http://localhost:8000')
+		VisitorTest.login(self)
+		self.browser.find_element_by_id('post_draft_list').click()
+
+		posts = self.browser.find_elements_by_class_name('post')
+
+		for post in posts:
+			if (post.find_element_by_class_name('post-title').text == VisitorTest.draftTitleTest and post.find_element_by_class_name('post-text').text == VisitorTest.draftTextTest):
+				post.find_element_by_class_name('post-title').click()
+				break
+
+		time.sleep(1)
+		self.browser.find_element_by_class_name('post').find_element_by_id('delete_button').click()
+		time.sleep(1)
+
+		self.browser.find_element_by_id('post_draft_list').click()
+
+		posts = self.browser.find_elements_by_class_name('post')
+
+		self.assertFalse(
+			any((post.find_element_by_class_name('post-title').text == VisitorTest.draftTitleTest and
+				post.find_element_by_class_name('post-text').text == VisitorTest.draftTextTest) for post in posts)
+			)
 
 	def test_add_post_to_drafts(self):
 		self.browser.get('http://localhost:8000')
@@ -54,21 +87,39 @@ class VisitorTest(unittest.TestCase):
 		newPost = self.browser.find_element_by_id('add_post')
 		newPost.click()
 
-		titleTest = "selenium draft test title"
-		textTest = "selenium draft test text"
-
 		inputTitleBox = self.browser.find_element_by_id('id_title')
-		inputTitleBox.send_keys(titleTest)
+		inputTitleBox.send_keys(VisitorTest.draftTitleTest)
 		inputTextBox = self.browser.find_element_by_id('id_text')
-		inputTextBox.send_keys(textTest)
+		inputTextBox.send_keys(VisitorTest.draftTextTest)
 		submitButton = self.browser.find_element_by_id('submit_button')
 		submitButton.click()
 
 
 		posts = self.browser.find_elements_by_class_name('post')
 		self.assertTrue(
-			any((post.find_element_by_class_name('post-title').text == titleTest and
-				post.find_element_by_class_name('post-text').text == textTest) for post in posts)
+			any((post.find_element_by_class_name('post-title').text == VisitorTest.draftTitleTest and
+				post.find_element_by_class_name('post-text').text == VisitorTest.draftTextTest) for post in posts)
+			)
+
+	def test_delete_published_post(self):
+		self.browser.get('http://localhost:8000')
+		VisitorTest.login(self)
+		posts = self.browser.find_elements_by_class_name('post')
+
+		for post in posts:
+			if (post.find_element_by_class_name('post-title').text == VisitorTest.postTitleTest and post.find_element_by_class_name('post-text').text == VisitorTest.postTextTest):
+				post.find_element_by_class_name('post-title').click()
+				break
+
+		time.sleep(1)
+		self.browser.find_element_by_class_name('post').find_element_by_id('delete_button').click()
+		time.sleep(1)
+
+		posts = self.browser.find_elements_by_class_name('post')
+
+		self.assertFalse(
+			any((post.find_element_by_class_name('post-title').text == VisitorTest.postTitleTest and
+				post.find_element_by_class_name('post-text').text == VisitorTest.postTextTest) for post in posts)
 			)
 
 	def test_add_post_to_blog(self):
@@ -77,13 +128,10 @@ class VisitorTest(unittest.TestCase):
 		newPost = self.browser.find_element_by_id('add_post')
 		newPost.click()
 
-		titleTest = "selenium test title"
-		textTest = "selenium test text"
-
 		inputTitleBox = self.browser.find_element_by_id('id_title')
-		inputTitleBox.send_keys(titleTest)
+		inputTitleBox.send_keys(VisitorTest.postTitleTest)
 		inputTextBox = self.browser.find_element_by_id('id_text')
-		inputTextBox.send_keys(textTest)
+		inputTextBox.send_keys(VisitorTest.postTextTest)
 		submitButton = self.browser.find_element_by_id('submit_button')
 		submitButton.click()
 
@@ -92,12 +140,9 @@ class VisitorTest(unittest.TestCase):
 
 		posts = self.browser.find_elements_by_class_name('post')
 		self.assertTrue(
-			any((post.find_element_by_class_name('post-title').text == titleTest and
-				post.find_element_by_class_name('post-text').text == textTest) for post in posts)
+			any((post.find_element_by_class_name('post-title').text == VisitorTest.postTitleTest and
+				post.find_element_by_class_name('post-text').text == VisitorTest.postTextTest) for post in posts)
 			)
 			
-		
-
-
 if __name__ == '__main__':
 	unittest.main(warnings='ignore')

@@ -54,4 +54,7 @@ def post_publish(request,pk):
 def post_remove(request,pk):
 	post = get_object_or_404(Post, pk=pk)
 	post.delete()
-	return redirect('post_list')
+	if post.published_date != None:
+		return redirect('post_list')
+	else:
+		return redirect('post_draft_list')
