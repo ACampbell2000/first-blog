@@ -54,6 +54,29 @@ class VisitorTest(unittest.TestCase):
 		newPost = self.browser.find_element_by_id('add_post')
 		newPost.click()
 
+		titleTest = "selenium draft test title"
+		textTest = "selenium draft test text"
+
+		inputTitleBox = self.browser.find_element_by_id('id_title')
+		inputTitleBox.send_keys(titleTest)
+		inputTextBox = self.browser.find_element_by_id('id_text')
+		inputTextBox.send_keys(textTest)
+		submitButton = self.browser.find_element_by_id('submit_button')
+		submitButton.click()
+
+
+		posts = self.browser.find_elements_by_class_name('post')
+		self.assertTrue(
+			any((post.find_element_by_class_name('post-title').text == titleTest and
+				post.find_element_by_class_name('post-text').text == textTest) for post in posts)
+			)
+
+	def test_add_post_to_blog(self):
+		self.browser.get('http://localhost:8000')
+		VisitorTest.login(self)
+		newPost = self.browser.find_element_by_id('add_post')
+		newPost.click()
+
 		titleTest = "selenium test title"
 		textTest = "selenium test text"
 
@@ -63,13 +86,17 @@ class VisitorTest(unittest.TestCase):
 		inputTextBox.send_keys(textTest)
 		submitButton = self.browser.find_element_by_id('submit_button')
 		submitButton.click()
-		time.sleep(3)
+
+		self.browser.find_element_by_class_name('post').find_element_by_id('publish_button').click()
+		self.browser.find_element_by_id('home_button').click()
 
 		posts = self.browser.find_elements_by_class_name('post')
 		self.assertTrue(
 			any((post.find_element_by_class_name('post-title').text == titleTest and
 				post.find_element_by_class_name('post-text').text == textTest) for post in posts)
 			)
+			
+		
 
 
 if __name__ == '__main__':
