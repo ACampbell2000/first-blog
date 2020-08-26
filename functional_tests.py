@@ -38,7 +38,7 @@ class VisitorTest(unittest.TestCase):
 		usernameInput.send_keys("ACampbell2000")
 
 		passwordInput = self.browser.find_element_by_id('id_password')
-		passwordInput.send_keys("SOphieC070")
+		passwordInput.send_keys("tU9qnHsF9F68vTJ")
 		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
