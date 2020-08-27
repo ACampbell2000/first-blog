@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-from .models import Post
-from .forms import PostForm
+from .models import Post, CV
+from .forms import PostForm, CVForm
 from django.contrib.auth.decorators import login_required
 
 def post_list(request):
@@ -59,6 +59,34 @@ def post_remove(request,pk):
 	else:
 		return redirect('post_draft_list')
 
+def cv(request, pk):
+	cv = get_object_or_404(CV, pk=pk)
+	return render(request, 'blog/cv.html', {'cv': cv})
+
+
 @login_required
-def cv(request):
-	return render(request, 'blog/cv.html')
+def create_cv(request):
+	if request.method == "POST":
+		form = CVForm(request.POST)
+		if form.is_valid():
+			post = form.save(commit=False)
+			post.author = request.user
+			post.save()
+			return redirect('cv', pk=post.pk)
+	else:
+		form = CVForm()
+	return render(request, 'blog/edit_cv.html', {'form': form})	
+
+@login_required
+def edit_cv(request, pk):
+	cv = get_object_or_404(CV, pk=pk)
+	if request.method == "POST":
+		form = CVForm(request.POST, instance=cv)
+		if form.is_valid():
+			cv = form.save(commit=False)
+			cv.author = request.user
+			cv.save()
+			return redirect('cv', pk=cv.pk)
+	else:
+		form = CVForm(instance=cv)
+	return render(request, 'blog/edit_cv.html', {'form': form})

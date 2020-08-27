@@ -1,6 +1,4 @@
 from django.test import TestCase
-from django.urls import resolve
-from django.http import HttpRequest
 
 from blog.views import post_list
 

@@ -16,3 +16,17 @@ class Post(models.Model):
 	
 	def __str__(self):
 		return self.title
+
+
+class CV(models.Model):
+	author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+	phone_number = models.CharField(max_length=11)
+	address = models.CharField(max_length=200)
+	email = models.EmailField()
+	personal_statement = models.TextField(default="Enter Personal Statement")
+	work_experience = models.TextField(default="Enter Work Experience")
+	grades = models.TextField(default="Enter Grades")
+
+
+	def publish(self):
+		self.save()

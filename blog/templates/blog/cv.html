@@ -1,1 +1,24 @@
 {% extends 'blog/base.html' %}
+
+{% block content %}
+	<div id="cv">
+		{% if user.is_authenticated %}
+			<h1 id="cv_title"><a href="{% url 'edit_cv' pk=cv.pk %}">Alex Campbell</a></h1>
+		{% else %}
+			<h1 id="cv_title">Alex Campbell</h1>
+		{% endif %}
+		<h2 id="phone_number" class="contact">{{ cv.phone_number }}</h2>
+		<h2 id="email" class="contact">{{ cv.email }}</h2>
+		<h2 id="address" class="contact">{{ cv.address }}</h2>
+		<br>
+
+		<h1 class="cv-heading">Personal Statement</h1>
+		<p class="cv-text">{{ cv.personal_statement }}</p>
+
+		<h1 class="cv-heading">Work Experience</h1>
+		<p class="cv-text">{{ cv.work_experience }}</p>
+
+		<h1 class="cv-heading">Education</h1>
+		<p class="cv-text">{{ cv.grades }}</p>
+	</div>
+{% endblock %}
