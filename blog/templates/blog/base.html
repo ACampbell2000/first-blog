@@ -13,7 +13,7 @@
 				<div class="columnleft">
 					<h1 id="home_button" ><a href="/">Alex's Blog</a></h1>
 					<div class="buttons">
-						<a id="cv" href="{% url 'cv' pk=10 %}" class="side-menu"><span class="glyphicon glyphicon-folder-open"></span> CV <br></a>
+						<a id="cv" href="{% url 'cv' %}" class="side-menu"><span class="glyphicon glyphicon-folder-open"></span> CV <br></a>
 						{% if user.is_authenticated %}
 							<a id="add_post" href="{% url 'post_new' %}" class="side-menu"><span class="glyphicon glyphicon-plus"></span> New Post </a><br>
 							<a id="post_draft_list" href="{% url 'post_draft_list' %}" class="side-menu"><span class="glyphicon glyphicon-edit"></span> Draft Posts </a><br>

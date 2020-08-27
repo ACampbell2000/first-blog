@@ -59,9 +59,12 @@ def post_remove(request,pk):
 	else:
 		return redirect('post_draft_list')
 
-def cv(request, pk):
-	cv = get_object_or_404(CV, pk=pk)
-	return render(request, 'blog/cv.html', {'cv': cv})
+def cv(request):
+	cv = CV.objects.all().first()
+	if cv is None:
+		return redirect('create_cv')
+	else:
+		return render(request, 'blog/cv.html', {'cv': cv})
 
 
 @login_required

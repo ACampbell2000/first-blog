@@ -11,7 +11,7 @@ urlpatterns = [
 	path('post/<pk>/publish/', views.post_publish, name='post_publish'),
 	path('post/<pk>/remove/', views.post_remove, name='post_remove'),
 	path('accounts/', include('django.contrib.auth.urls')),
-	path('cv/<int:pk>/', views.cv, name='cv'),
+	path('cv/', views.cv, name='cv'),
 	path('cv/<int:pk>/edit', views.edit_cv, name='edit_cv'),
 	path('cv/new/', views.create_cv, name='create_cv')
 ]
