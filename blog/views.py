@@ -62,7 +62,10 @@ def post_remove(request,pk):
 def cv(request):
 	cv = CV.objects.all().first()
 	if cv is None:
-		return redirect('create_cv')
+		if request.user.is_authenticated:
+			return redirect('create_cv')
+		else:
+			return redirect('post_list')
 	else:
 		return render(request, 'blog/cv.html', {'cv': cv})
 
