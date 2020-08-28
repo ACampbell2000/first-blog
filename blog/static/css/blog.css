@@ -38,11 +38,6 @@ body {
 .save {
 	margin-left: 20px;
 }
- {
-	width: 80%;
-	margin-left: 20px;
-	display: block;
-}
 
 .post-form textarea, .post-form input, .cv-form textarea, .cv-form input {
 	width: 80%;

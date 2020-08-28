@@ -60,7 +60,11 @@ def post_remove(request,pk):
 		return redirect('post_draft_list')
 
 def cv(request):
-	cv = CV.objects.all().first()
+	try:
+		cv = CV.objects.all().first()
+	except Exception as e:
+		return redirect('error')
+		
 	if cv is None:
 		if request.user.is_authenticated:
 			return redirect('create_cv')
