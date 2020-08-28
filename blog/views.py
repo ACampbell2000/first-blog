@@ -68,7 +68,7 @@ def cv(request):
 		else:
 			return redirect('error')
 
-		return render(request, 'blog/cv.html', {'cv': cv})
+	return render(request, 'blog/cv.html', {'cv': cv})
 
 
 @login_required
