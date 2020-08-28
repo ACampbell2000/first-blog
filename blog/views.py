@@ -63,14 +63,11 @@ def cv(request):
 	try:
 		cv = CV.objects.all().first()
 	except Exception as e:
-		return redirect('error')
-
-	if cv is None:
 		if request.user.is_authenticated:
 			return redirect('create_cv')
 		else:
 			return redirect('error')
-	else:
+
 		return render(request, 'blog/cv.html', {'cv': cv})
 
 
