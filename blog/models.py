@@ -20,9 +20,9 @@ class Post(models.Model):
 
 class CV(models.Model):
 	author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-	phone_number = models.CharField(max_length=11)
-	address = models.CharField(max_length=200)
-	email = models.EmailField()
+	phone_number = models.CharField(max_length=11, default = "Enter")
+	address = models.CharField(max_length=200, default="Enter Address")
+	email = models.EmailField(default="enter@email.com")
 	personal_statement = models.TextField(default="Enter Personal Statement")
 	work_experience = models.TextField(default="Enter Work Experience")
 	grades = models.TextField(default="Enter Grades")

@@ -64,7 +64,7 @@ def cv(request):
 		cv = CV.objects.all().first()
 	except Exception as e:
 		return redirect('error')
-		
+
 	if cv is None:
 		if request.user.is_authenticated:
 			return redirect('create_cv')
@@ -82,7 +82,7 @@ def create_cv(request):
 			post = form.save(commit=False)
 			post.author = request.user
 			post.save()
-			return redirect('cv', pk=post.pk)
+			return redirect('cv')
 	else:
 		form = CVForm()
 	return render(request, 'blog/edit_cv.html', {'form': form})	
@@ -96,7 +96,7 @@ def edit_cv(request, pk):
 			cv = form.save(commit=False)
 			cv.author = request.user
 			cv.save()
-			return redirect('cv', pk=cv.pk)
+			return redirect('cv')
 	else:
 		form = CVForm(instance=cv)
 	return render(request, 'blog/edit_cv.html', {'form': form})

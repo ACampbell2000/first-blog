@@ -39,22 +39,12 @@ class VisitorTest(unittest.TestCase):
 
 		passwordInput = self.browser.find_element_by_id('id_password')
 		passwordInput.send_keys("tU9qnHsF9F68vTJ")
-		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-		# THIS NEEDS TO BE REMOVED BEFORE HANDING IN
-		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-		# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+		#this is the password for the local database so it doesnt matter that it is in plain text here.
 		passwordInput.submit()
 		time.sleep(1)
 		self.browser.back()
 		self.browser.back()
+
 
 	def test_delete_draft(self):
 		self.browser.get('http://localhost:8000')
@@ -64,7 +54,7 @@ class VisitorTest(unittest.TestCase):
 		posts = self.browser.find_elements_by_class_name('post')
 
 		for post in posts:
-			if (post.find_element_by_class_name('post-title').text == VisitorTest.draftTitleTest and post.find_element_by_class_name('post-text').text == VisitorTest.draftTextTest):
+			if (post.find_element_by_class_name('post-title').text == (VisitorTest.draftTitleTest + "1") and post.find_element_by_class_name('post-text').text == (VisitorTest.draftTextTest + "1")):
 				post.find_element_by_class_name('post-title').click()
 				break
 
@@ -77,11 +67,11 @@ class VisitorTest(unittest.TestCase):
 		posts = self.browser.find_elements_by_class_name('post')
 
 		self.assertFalse(
-			any((post.find_element_by_class_name('post-title').text == VisitorTest.draftTitleTest and
-				post.find_element_by_class_name('post-text').text == VisitorTest.draftTextTest) for post in posts)
+			any((post.find_element_by_class_name('post-title').text == (VisitorTest.draftTitleTest + "1") and
+				post.find_element_by_class_name('post-text').text == (VisitorTest.draftTextTest + "1")) for post in posts)
 			)
 
-	def test_add_post_to_drafts(self):
+	def test_add_post_to_drafts_and_edit(self):
 		self.browser.get('http://localhost:8000')
 		VisitorTest.login(self)
 		newPost = self.browser.find_element_by_id('add_post')
@@ -101,13 +91,39 @@ class VisitorTest(unittest.TestCase):
 				post.find_element_by_class_name('post-text').text == VisitorTest.draftTextTest) for post in posts)
 			)
 
+		for post in posts:
+			if (post.find_element_by_class_name('post-title').text == VisitorTest.draftTitleTest and post.find_element_by_class_name('post-text').text == VisitorTest.draftTextTest):
+				post.find_element_by_class_name('post-title').click()
+				break
+
+		time.sleep(1)
+		self.browser.find_element_by_class_name('post').find_element_by_id('edit_button').click()
+		time.sleep(1)
+
+		inputTitleBox = self.browser.find_element_by_id('id_title')
+		inputTitleBox.clear()
+		inputTitleBox.send_keys(VisitorTest.draftTitleTest + "1")
+
+		inputTextBox = self.browser.find_element_by_id('id_text')
+		inputTextBox.clear()
+		inputTextBox.send_keys(VisitorTest.draftTextTest + "1")
+
+		submitButton = self.browser.find_element_by_id('submit_button')
+		submitButton.click()
+
+		posts = self.browser.find_elements_by_class_name('post')
+		self.assertTrue(
+			any((post.find_element_by_class_name('post-title').text == (VisitorTest.draftTitleTest + "1") and
+				post.find_element_by_class_name('post-text').text == (VisitorTest.draftTextTest + "1")) for post in posts)
+			)
+
 	def test_delete_published_post(self):
 		self.browser.get('http://localhost:8000')
 		VisitorTest.login(self)
 		posts = self.browser.find_elements_by_class_name('post')
 
 		for post in posts:
-			if (post.find_element_by_class_name('post-title').text == VisitorTest.postTitleTest and post.find_element_by_class_name('post-text').text == VisitorTest.postTextTest):
+			if (post.find_element_by_class_name('post-title').text == (VisitorTest.postTitleTest + "1") and post.find_element_by_class_name('post-text').text == (VisitorTest.postTextTest + "1")):
 				post.find_element_by_class_name('post-title').click()
 				break
 
@@ -118,11 +134,12 @@ class VisitorTest(unittest.TestCase):
 		posts = self.browser.find_elements_by_class_name('post')
 
 		self.assertFalse(
-			any((post.find_element_by_class_name('post-title').text == VisitorTest.postTitleTest and
-				post.find_element_by_class_name('post-text').text == VisitorTest.postTextTest) for post in posts)
+			any((post.find_element_by_class_name('post-title').text == (VisitorTest.postTitleTest + "1") and
+				post.find_element_by_class_name('post-text').text == (VisitorTest.postTextTest + "1")) for post in posts)
 			)
 
-	def test_add_post_to_blog(self):
+
+	def test_add_post_to_blog_and_edit(self):
 		self.browser.get('http://localhost:8000')
 		VisitorTest.login(self)
 		newPost = self.browser.find_element_by_id('add_post')
@@ -142,6 +159,32 @@ class VisitorTest(unittest.TestCase):
 		self.assertTrue(
 			any((post.find_element_by_class_name('post-title').text == VisitorTest.postTitleTest and
 				post.find_element_by_class_name('post-text').text == VisitorTest.postTextTest) for post in posts)
+			)
+
+		for post in posts:
+			if (post.find_element_by_class_name('post-title').text == VisitorTest.postTitleTest and post.find_element_by_class_name('post-text').text == VisitorTest.postTextTest):
+				post.find_element_by_class_name('post-title').click()
+				break
+
+		time.sleep(1)
+		self.browser.find_element_by_class_name('post').find_element_by_id('edit_button').click()
+		time.sleep(1)
+
+		inputTitleBox = self.browser.find_element_by_id('id_title')
+		inputTitleBox.clear()
+		inputTitleBox.send_keys(VisitorTest.postTitleTest + "1")
+
+		inputTextBox = self.browser.find_element_by_id('id_text')
+		inputTextBox.clear()
+		inputTextBox.send_keys(VisitorTest.postTextTest + "1")
+
+		submitButton = self.browser.find_element_by_id('submit_button')
+		submitButton.click()
+
+		posts = self.browser.find_elements_by_class_name('post')
+		self.assertTrue(
+			any((post.find_element_by_class_name('post-title').text == (VisitorTest.postTitleTest + "1") and
+				post.find_element_by_class_name('post-text').text == (VisitorTest.postTextTest + "1")) for post in posts)
 			)
 			
 if __name__ == '__main__':
