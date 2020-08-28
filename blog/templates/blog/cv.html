@@ -13,12 +13,12 @@
 		<br>
 
 		<h1 class="cv-heading">Personal Statement</h1>
-		<p id="personal_statement" class="cv-text">{{ cv.personal_statement }}</p>
+		<p id="personal_statement" class="cv-text">{{ cv.personal_statement|linebreaksbr }}</p>
 
 		<h1 class="cv-heading">Work Experience</h1>
-		<p id="work_experience" class="cv-text">{{ cv.work_experience }}</p>
+		<p id="work_experience" class="cv-text">{{ cv.work_experience|linebreaksbr }}</p>
 
 		<h1 class="cv-heading">Education</h1>
-		<p id="grades" class="cv-text">{{ cv.grades }}</p>
+		<p id="grades" class="cv-text">{{ cv.grades|linebreaksbr }}</p>
 	</div>
 {% endblock %}
