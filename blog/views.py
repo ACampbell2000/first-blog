@@ -68,7 +68,13 @@ def cv(request):
 		else:
 			return redirect('error')
 
-	return render(request, 'blog/cv.html', {'cv': cv})
+	if cv is None:
+		if request.user.is_authenticated:
+			return redirect('create_cv')
+		else:
+			return redirect('error')
+	else:
+		return render(request, 'blog/cv.html', {'cv': cv})
 
 
 @login_required
