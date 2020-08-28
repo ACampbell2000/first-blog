@@ -121,6 +121,11 @@ body {
 	padding-left: 40pt;
 }
 
+.error-text {
+	color: #ff7070;
+	text-align: center;
+}
+
 label {
 	color: #ffffff;
 	margin-left: 20px;

@@ -65,7 +65,7 @@ def cv(request):
 		if request.user.is_authenticated:
 			return redirect('create_cv')
 		else:
-			return redirect('post_list')
+			return redirect('error')
 	else:
 		return render(request, 'blog/cv.html', {'cv': cv})
 
@@ -96,3 +96,6 @@ def edit_cv(request, pk):
 	else:
 		form = CVForm(instance=cv)
 	return render(request, 'blog/edit_cv.html', {'form': form})
+
+def error(request):
+	return render(request, 'blog/error.html')

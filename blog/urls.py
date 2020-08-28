@@ -13,5 +13,6 @@ urlpatterns = [
 	path('accounts/', include('django.contrib.auth.urls')),
 	path('cv/', views.cv, name='cv'),
 	path('cv/<int:pk>/edit', views.edit_cv, name='edit_cv'),
-	path('cv/new/', views.create_cv, name='create_cv')
+	path('cv/new/', views.create_cv, name='create_cv'),
+	path('error', views.error, name='error')
 ]
