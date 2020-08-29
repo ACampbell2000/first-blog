@@ -47,12 +47,12 @@ body {
 
 .side-menu, .side-menu:hover, .side-menu:visited {
 	color: #ffffff;
-	float: left;
 	font-size: 21pt;
 	font-family: 'Roboto', sans-serif;
 	margin-right: 20px;
 	padding-left: 20px;
 	text-align: left;
+	display: block;
 }
 
 .post {
