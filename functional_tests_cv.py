@@ -77,6 +77,11 @@ class VisitorTest(unittest.TestCase):
 		we.clear()
 		we.send_keys(input_workExperience)
 
+		input_projects = str(random()*1000)
+		pr = self.browser.find_element_by_id('projects')
+		pr.clear()
+		pr.send_keys(input_projects)
+
 		#finally they change one of their grades after mistaking one of their grades
 		input_grades = str(random()*1000)
 		gr = self.browser.find_element_by_id('id_grades')
@@ -103,6 +108,9 @@ class VisitorTest(unittest.TestCase):
 
 		workExperience = self.browser.find_element_by_id('work_experience').text
 		self.assertEquals(workExperience, input_workExperience)
+
+		projects = self.browser.find_element_by_id('projects').text
+		self.assertEquals(projects,input_projects)
 
 		grades = self.browser.find_element_by_id('grades').text
 		self.assertEquals(grades, input_grades)

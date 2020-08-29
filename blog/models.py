@@ -25,6 +25,7 @@ class CV(models.Model):
 	email = models.EmailField(default="enter@email.com")
 	personal_statement = models.TextField(default="Enter Personal Statement")
 	work_experience = models.TextField(default="Enter Work Experience")
+	projects = models.TextField(default="Enter Projects")
 	grades = models.TextField(default="Enter Grades")
 
 
