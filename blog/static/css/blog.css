@@ -5,10 +5,10 @@ body {
 }
 
 .columnleft {
-	float: left;
 	width: 15%;
 	background-color: #0066ff;
-	height: 100vh;
+	height: 100%;
+	position: fixed;
 }
 
 .columnleft h1, .columnleft h1 a, .columnleft h1 a:visited, .columnleft h1 a:active {
@@ -20,9 +20,10 @@ body {
 }
 
 .columnright {
-	float: left;
+	float: right;
 	width: 85%;
 	background-color: #3D3D3D;
+
 }
 
 .content {
