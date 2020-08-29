@@ -78,7 +78,7 @@ class VisitorTest(unittest.TestCase):
 		we.send_keys(input_workExperience)
 
 		input_projects = str(random()*1000)
-		pr = self.browser.find_element_by_id('projects')
+		pr = self.browser.find_element_by_id('id_projects')
 		pr.clear()
 		pr.send_keys(input_projects)
 
